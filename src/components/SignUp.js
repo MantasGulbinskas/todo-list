@@ -7,16 +7,16 @@ export const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [username, setUsername] = useState('')
     const {createUser} = UserAuth()
     const navigate = useNavigate()
 
     const signUp = async (e) => {
         e.preventDefault()
         try {
-         await createUser(email,password)
+         await createUser(email,password, username)
             navigate('/dashboard')
         } catch (e) {
-            console.log(e)
             setError(e.message)
         }
     };
@@ -25,6 +25,14 @@ export const SignUp = () => {
             <div className="container mt-5 m w-25">
                 <h1>{error}</h1>
 
+                <div className="col justify-content-center">
+                    <div className="d-flex flex-row align-items-center mb-4">
+                        <div className="form-outline flex-fill mb-0">
+                            <input type="text" placeholder='username' className='form-control' value={username}
+                                   onChange={(e) => setUsername(e.target.value)}/>
+                        </div>
+                    </div>
+                </div>
                 <div className="col justify-content-center">
                     <div className="d-flex flex-row align-items-center mb-4">
                         <div className="form-outline flex-fill mb-0">
@@ -49,7 +57,6 @@ export const SignUp = () => {
                 </div>
             </div>
             <div><h2><Link to='/'>Home</Link></h2></div>
-
         </section>
     )
 }

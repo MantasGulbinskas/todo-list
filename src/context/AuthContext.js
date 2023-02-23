@@ -3,22 +3,13 @@ import {createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 signOut,
 onAuthStateChanged} from "firebase/auth";
-import {auth} from "../config/Firebase_config";
+import {setDoc, doc } from 'firebase/firestore'
+import {auth, db} from "../config/Firebase_config";
 
 const UserContext = createContext(() => {})
 
 export const AuthContextProvider = ({children}) => {
-    const [user, setUser] = useState({})
-    const createUser = (email,password) => {
-        return createUserWithEmailAndPassword(auth,email,password)
-    }
 
-    const logout = () => {
-        return signOut(auth)
-    }
-    const signIn = (email, password) => {
-        return signInWithEmailAndPassword(auth,email,password)
-    }
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth,(currentUser) => {
             setUser(currentUser)
@@ -27,6 +18,22 @@ export const AuthContextProvider = ({children}) => {
             unsubscribe()
         }
     },[])
+
+
+    const [user, setUser] = useState({})
+    const createUser = (email,password, username) => {
+        return createUserWithEmailAndPassword(auth,email,password)
+            .then(async (result) => {
+                const ref = doc(db, 'users_information', result.user.uid);
+                 await setDoc(ref, { username})
+            })
+    }
+    const logout = () => {
+        return signOut(auth)
+    }
+    const signIn = (email, password) => {
+        return signInWithEmailAndPassword(auth,email,password)
+    }
 
     return (
         <UserContext.Provider value={{createUser, user, logout, signIn}}>
