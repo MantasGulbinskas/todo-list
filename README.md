@@ -14,7 +14,6 @@ A simple to-do list web application to manage your daily tasks.
 - Add new tasks
 - Show all tasks
 
-
 ## Roadmap
 
 - Add Delete Button
