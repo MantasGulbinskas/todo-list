@@ -3,6 +3,7 @@ import {SignOut} from "../components/SignOut";
 import {UserAuth} from "../context/AuthContext";
 import {db} from "../config/Firebase_config";
 import {doc, getDoc} from 'firebase/firestore'
+import {Link} from "react-router-dom";
 export const Dashboard =  () => {
     const {user} = UserAuth();
 
@@ -35,7 +36,7 @@ export const Dashboard =  () => {
         <h2>{error}</h2>
         <p>User Email: {user && user.email}</p>
         <p>User Name: {username.username}</p>
-
         <SignOut />
+        <Link to='/tasks'>Task</Link>
     </div>
 }
