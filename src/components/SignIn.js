@@ -14,43 +14,35 @@ export const SingIn = () => {
         try {
             await signIn(email, password)
             navigate('/dashboard')
+
         } catch (e) {
             setError(e.message)
         }
     }
+
+
     if (!user) {
         return (
-            <section>
-                <h1>{error}</h1>
-                <div className="container mt-5 m w-25">
-                    <div className="col justify-content-center">
-                        <div className="d-flex flex-row align-items-center mb-4">
-                            <div className="form-outline flex-fill mb-0">
-                                <input type="text" placeholder='Email' className='form-control' value={email}
-                                       onChange={(e) => setEmail(e.target.value)}/>
-                            </div>
-                        </div>
-
-                        <div className="d-flex flex-row align-items-center mb-4">
-                            <div className="form-outline flex-fill mb-0">
-                                <input type="password" placeholder='password' className='form-control' value={password}
-                                       onChange={(e) => setPassword(e.target.value)}/>
-                            </div>
-                        </div>
-
-                        <div className="d-flex justify-content-center mx-4 -mb-3 mb-lg-4">
-                            <button onClick={logIn} className="btn btn-primary btn-lg">Log in</button>
-                        </div>
-                        <div>
-                            <p>Not register? <a href="/sign-up">Sign up</a></p>
-                        </div>
-                    </div>
+            <section style={{maxWidth: '400px'}} className='text-center p-5 m-auto w-100'>
+                <p>{error}</p>
+                <h1>Please sign in</h1>
+                <div className="form-floating">
+                    <input type="email" className='form-control' id='floatingInput' placeholder='name@example.com'
+                           value={email} onChange={e => setEmail(e.target.value)}/>
+                    <label htmlFor="floatingInput" className='fs-4'>Email address</label>
                 </div>
-                <div><h2><Link to='/'>Home</Link></h2></div>
+                <div className="form-floating">
+                    <input type="password" className='form-control' id='floatingPassword' placeholder='Password'
+                           value={password} onChange={e => setPassword(e.target.value)}/>
+                    <label htmlFor="floatingPassword" className='fs-4'>Password</label>
+                </div>
+                <button onClick={logIn} className="w-100 btn btn-lg btn-primary my-5" type='submit'>Sign in</button>
+
+                <p>Dont have account?<Link to='/sign-up'>Register</Link></p>
             </section>
         )
-    }else {
-        return <Navigate to='/dashboard' />
+    } else {
+        return <Navigate to='/dashboard'/>
     }
 }
 
