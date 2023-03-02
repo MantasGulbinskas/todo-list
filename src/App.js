@@ -6,9 +6,8 @@ import {SignUp} from "./components/SignUp";
 import {Dashboard} from "./pages/Dashboard";
 import {AuthContextProvider} from "./context/AuthContext";
 import {ProtectedRoute} from "./components/ProtectedRoute";
-import {Tasks} from "./pages/Tasks";
 import {Forbidden} from "./components/Error/Forbidden";
-import {AddTask} from "./components/tasks/AddTask";
+import {List} from "./pages/list/List";
 
 function App() {
 
@@ -21,10 +20,11 @@ function App() {
                     <Route path='/sign-up' element={<SignUp/>}/>
                     <Route path='/log-in' element={<SingIn/>}/>
                     <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
-                    <Route path='/tasks' element={<ProtectedRoute><Tasks/></ProtectedRoute>}/>
                     <Route path='/forbidden' element={<Forbidden/>}/>
-                    <Route path='/tasks/add' element={<AddTask/>}/>
-
+                    <Route path='tasks'>
+                        <Route index element={<List/>}/>
+                        {/*<Route path='/tasks' element={<ProtectedRoute><Tasks/></ProtectedRoute>}/>*/}
+                    </Route>
                 </Routes>
             </AuthContextProvider>
 
