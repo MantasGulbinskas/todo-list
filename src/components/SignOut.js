@@ -11,9 +11,5 @@ try {
     console.log(e)
 }
 }
-    return (
-        <div>
-            <button onClick={LogOut}>Log Out</button>
-        </div>
-    )
+    return <span onClick={LogOut}>Log out</span>
 }
