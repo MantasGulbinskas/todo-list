@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {UserAuth} from "../../context/AuthContext";
 
 
-export const Data_profile = () => {
+export const DataProfile = () => {
     const {changeProfileData, changeProfileSubmit} = UserAuth()
     const navigate = useNavigate();
     const [username, setUsername] = useState('');

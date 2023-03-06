@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import {Data_profile} from "../../components/profile/Data_profile";
+import {DataProfile} from "../../components/profile/DataProfile";
 
 export const Profile = () => {
   return (
@@ -10,7 +10,7 @@ export const Profile = () => {
         <div style={{flex: 12}} >
           <Navbar/>
           <h1>Profile</h1>
-            <Data_profile />
+            <DataProfile />
         </div>
       </div>
   );
