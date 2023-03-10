@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     collection,
     query,
@@ -6,19 +6,20 @@ import {
     doc,
     updateDoc,
     deleteDoc,
+    where
 } from "firebase/firestore";
 import { db } from "../../config/Firebase_config";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Todo from "../../components/tasks/Todo";
 import AddTodo from "../../components/tasks/AddTodo";
+import {useLocalStorage} from "../../hooks/UseLocalStorage";
 
 export const List = () => {
-
+    const [dataStorage] = useLocalStorage()
     const [todos, setTodos] = useState([]);
-
-    React.useEffect(() => {
-        const q = query(collection(db, "tasks"));
+    useEffect(() => {
+        const q = query(collection(db, "tasks"), where("creator_id", "==", dataStorage.uid));
         const unsub = onSnapshot(q, (querySnapshot) => {
             let todosArray = [];
             querySnapshot.forEach((doc) => {
