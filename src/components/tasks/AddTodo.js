@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {db} from "../../config/Firebase_config";
 import {addDoc, collection, Timestamp} from "firebase/firestore";
+import {useLocalStorage} from "../../hooks/UseLocalStorage";
 
 export default function AddTodo() {
     const [title, setTitle] = useState("");
-
+    const [dataStorage]  = useLocalStorage('')
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (title !== "") {
@@ -12,6 +13,7 @@ export default function AddTodo() {
                 title,
                 date: Timestamp.now().toDate(),
                 completed: false,
+                creator_id: dataStorage.uid
             });
             setTitle("");
         }
@@ -29,5 +31,4 @@ export default function AddTodo() {
             <button className='btn btn-dark '>Add</button>
 </form>
 )
-    ;
 }
