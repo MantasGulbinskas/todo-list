@@ -9,10 +9,12 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import {SignOut} from "../SignOut";
+
  const Sidebar = () => {
     return (
-        <div className="sidebar ">
-            <div className="top ms-3">
+        <>
+        <div className="sidebar p-0">
+            <div className="top text-center">
                 <Link to="/dashboard" style={{textDecoration: "none"}}>
                     <span className="logo">admin panel</span>
                 </Link>
@@ -57,10 +59,10 @@ import {SignOut} from "../SignOut";
                     </li>
                     <p className="title">USER</p>
                     <Link to='/profile' style={{textDecoration: "none"}}>
-                    <li>
-                        <AccountCircleOutlinedIcon className="icon" />
-                        <span>Profile</span>
-                    </li>
+                        <li>
+                            <AccountCircleOutlinedIcon className="icon" />
+                            <span>Profile</span>
+                        </li>
                     </Link>
                     <li>
                         <ExitToAppIcon className="icon" />
@@ -70,6 +72,7 @@ import {SignOut} from "../SignOut";
                 </ul>
             </div>
         </div>
+        </>
     );
 }
 
