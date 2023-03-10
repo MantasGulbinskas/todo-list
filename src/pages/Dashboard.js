@@ -1,15 +1,34 @@
-import Sidebar from "../components/sidebar/Sidebar";
-import Navbar from "../components/navbar/Navbar";
+import {useLocalStorage} from "../hooks/UseLocalStorage";
+import {useState} from "react";
+import {Loading} from "../components/loading/Loading";
+import {Layout} from "./Layout";
 
 export const Dashboard = () => {
 
+    const [dataStorage] = useLocalStorage()
+    const [isLoaded, setIsLoaded] = useState(true)
+    if (dataStorage) {
+        setTimeout(() => {
+            setIsLoaded(false)
+        }, 2000)
+    }
+    if (isLoaded) {
+        return <Loading/>
+    }
+
+
     return (
-        <div className="d-flex m-auto">
-                <Sidebar/>
-            <div style={{flex: 12}} >
-            <Navbar/>
-                <h1>Hello!</h1>
-            </div>
-        </div>
+        <>
+       <Layout>
+           <div>
+               <h1>Hello!</h1>
+               <img className='w-25' src={dataStorage.photoURL} alt="profile_photo"/>
+               <p>{!dataStorage ? 'No name' : dataStorage.displayName}</p>
+           </div>
+       </Layout>
+
+        </>
     )
+
+
 }
