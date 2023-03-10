@@ -1,17 +1,16 @@
 import React from 'react';
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import {DataProfile} from "../../components/profile/DataProfile";
+import {ChangeProfile} from "../../components/profile/ChangeProfile";
+import {Layout} from "../Layout";
 
 export const Profile = () => {
   return (
-      <div className="d-flex m-auto">
-        <Sidebar/>
-        <div style={{flex: 12}} >
-          <Navbar/>
+    <Layout>
           <h1>Profile</h1>
-            <DataProfile />
+        <div>
+            <ChangeProfile />
         </div>
-      </div>
+    </Layout>
+
+
   );
 }
