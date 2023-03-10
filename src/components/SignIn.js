@@ -1,15 +1,16 @@
 import React, {useState} from "react";
 import {Link, useNavigate, Navigate} from 'react-router-dom';
 import {UserAuth} from "../context/AuthContext";
+import {auth} from "../config/Firebase_config";
 
 
-export const SingIn = () => {
+export const SignIn = () => {
+    const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const navigate = useNavigate()
-    const {signIn, user} = UserAuth();
-
+    const {signIn} = UserAuth();
+    const user = auth.currentUser
     const logIn = async () => {
         try {
             await signIn(email, password)
