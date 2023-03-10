@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, Navigate} from 'react-router-dom';
 import {UserAuth} from "../context/AuthContext";
 
 
@@ -14,9 +14,13 @@ export const SingIn = () => {
         try {
             await signIn(email, password)
             navigate('/dashboard')
-
         } catch (e) {
-            setError(e.message)
+            setError(e.code)
+        }
+    }
+    const handleKey = (e) => {
+        if(e.key === "Enter") {
+            logIn();
         }
     }
 
@@ -33,17 +37,21 @@ export const SingIn = () => {
                 </div>
                 <div className="form-floating">
                     <input type="password" className='form-control' id='floatingPassword' placeholder='Password'
-                           value={password} onChange={e => setPassword(e.target.value)}/>
+                           value={password}
+                           onKeyDown={handleKey}
+                           onChange={e => setPassword(e.target.value)}/>
                     <label htmlFor="floatingPassword" className='fs-4'>Password</label>
                 </div>
-                <button onClick={logIn} className="w-100 btn btn-lg btn-primary my-5" type='submit'>Sign in</button>
+                <button onClick={logIn} className="w-100 btn btn-lg btn-primary my-5" type='submit'>Sign in
+                </button>
 
                 <p>Dont have account?<Link to='/sign-up'>Register</Link></p>
             </section>
         )
-    } else {
-        return <Navigate to='/dashboard'/>
+    }else if (user) {
+        return <Navigate to={{ pathname: '/dashboard'}} replace />
     }
+
 }
 
 
