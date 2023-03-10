@@ -1,29 +1,42 @@
 import {createContext, useContext, useEffect, useState} from "react";
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {
+    browserLocalPersistence,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    setPersistence,
+    signInWithEmailAndPassword,
+    signOut
+} from "firebase/auth";
 import {doc, getDoc, setDoc, updateDoc} from 'firebase/firestore'
 import {auth, db} from "../config/Firebase_config";
+import {useLocalStorage} from "../hooks/UseLocalStorage";
 
 const UserContext = createContext(() => {
 })
 
 export const AuthContextProvider = ({children}) => {
+    const [user, setUser] = useState({})
+const [dataStorage] = useLocalStorage()
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setPersistence(auth, browserLocalPersistence)
             setUser(currentUser)
         })
         return () => {
             unsubscribe()
         }
     }, [])
-
-
-    const [user, setUser] = useState({})
     const createUser = (email, password, username, name, lastname) => {
-        return createUserWithEmailAndPassword(auth, email, password)
+        return createUserWithEmailAndPassword(auth, email, password,)
             .then(async (result) => {
                 const ref = doc(db, 'users_information', result.user.uid);
-                await setDoc(ref, {username, name, lastname,})
+                await setDoc(ref, {
+                    username,
+                    name,
+                    lastname,
+                    isAdmin: false
+                })
             })
     }
     const logout = () => {
@@ -31,15 +44,15 @@ export const AuthContextProvider = ({children}) => {
     }
     const signIn = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
+
     }
 
     const changeProfileData = async () => {
         try {
-            const docRef = doc(db, "users_information", user.uid);
+            const docRef = doc(db, "users_information", dataStorage.uid);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                const data = docSnap.data();
-                return data;
+                return docSnap.data();
             } else {
                 console.log("No such document!");
             }
