@@ -9,6 +9,7 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 import {Forbidden} from "./components/Error/Forbidden";
 import {List} from "./pages/list/List";
 import {Profile} from "./pages/user_profile/Profile";
+import {Users} from "./pages/users/Users";
 
 function App() {
 
@@ -23,10 +24,10 @@ function App() {
                     <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
                     <Route path='/forbidden' element={<Forbidden/>}/>
                         <Route path='/tasks' element={<ProtectedRoute><List/></ProtectedRoute>}/>
-
                     <Route path='profile'>
                         <Route index element={<Profile/>} />
                     </Route>
+                    <Route path='users' element={<Users />} />
                 </Routes>
             </AuthContextProvider>
 

@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Todo({todo, toggleComplete, handleDelete, handleEdit,}) {
-    const [newTitle, setNewTitle] = React.useState(todo.title);
+    const [newTitle, setNewTitle] = useState(todo.title);
 
     const handleChange = (e) => {
         e.preventDefault();
